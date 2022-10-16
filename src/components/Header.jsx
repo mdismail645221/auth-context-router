@@ -8,7 +8,7 @@ const Header = () => {
 
     return (
         <div className="navbar bg-base-100">
-            <div className="flex-1">
+            <div className="flex-1 hidden md:block">
                 <a className="btn btn-ghost normal-case text-xl">Auth context router</a>
             </div>
             <div className="flex-none">
