@@ -10,6 +10,7 @@ const auth = getAuth(app)
 
 const UserContext = ({ children }) => {
     const [user, setUser] = useState({displayName: 'Akhas'})
+    const [loading, setLoading] = useState(false)
     // const user = {
     //     displayName: 'Akhash'
     // }
@@ -43,6 +44,7 @@ const UserContext = ({ children }) => {
     useEffect(()=>{
        const unSubcribe =  onAuthStateChanged(auth, currentUser =>{
             setUser(currentUser)
+            setLoading(false)
             console.log('context unsubcribed useEffect',currentUser);
         })
         return () =>{
@@ -50,10 +52,10 @@ const UserContext = ({ children }) => {
         }
     },[])
 
-    
 
 
-    const authInfo = { user, createUser, signIn, logOut, signInWihGoogle }
+
+    const authInfo = { user, createUser, signIn, logOut, signInWihGoogle, loading }
 
     return (
         <AuthContext.Provider value={authInfo}>
