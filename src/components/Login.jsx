@@ -1,8 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {Link} from 'react-router-dom'
 import { AuthContext } from '../contexts/UserContext';
 
 const Login = () => {
+
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState(false)
 
     const { signIn } = useContext(AuthContext);
 
@@ -19,10 +22,12 @@ const Login = () => {
                 const user = result.user;
                 console.log(user)
                 form.reset()
+                setSuccess(true)
             })
         .catch(error => {
             console.error(error);
             console.log(error.message)
+            setError(error.message)
 
         })
         
@@ -57,7 +62,10 @@ const Login = () => {
                             <label className="label">
                                 <Link to='/register' className="label-text-alt">If not ‍<span className='text-violet-900 font-semibold link link-hover'>registered</span> please go here</Link>
                             </label>
-                            
+                            {
+                                success && <p className='text-green-600'>SuccessFully Added{success}</p>
+                            }
+                            <p className='text-red-600'>{error}</p>
                         </div>
                         <div className="form-control mt-6">
                             <button type='submit' className="btn btn-primary">Login</button>

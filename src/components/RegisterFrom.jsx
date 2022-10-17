@@ -1,14 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/UserContext';
 
 const RegisterFrom = () => {
+
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState(false)
 
     const { createUser, signInWihGoogle } = useContext(AuthContext)
     // console.log(createUser)
 
     const handleLoginForm = (event) => {
         event.preventDefault()
+        setSuccess(false)
         // console.log(event)
         const form = event.target;
         const email = event.target.email.value;
@@ -18,9 +22,13 @@ const RegisterFrom = () => {
             .then(result => {
                 const user = result.user;
                 form.reset()
+                setSuccess(true)
                 console.log(user)
             })
-        .catch(error=> console.error(error))
+        .catch(error=> {
+            console.error(error);
+            setError(error.message)
+        })
             
     }
 
@@ -58,7 +66,10 @@ const RegisterFrom = () => {
                     <input type="password" name='password' placeholder="password" className="input input-bordered" required />
                     </div>
                     <Link to='/login'>if already register Now! <small className='hover:underline text-violet-600 font-semibold'>Please Login</small></Link>
-
+                        {
+                            success && <p className='text-green-600'>SuccessFully Added{success}</p>
+                        }
+                        <p className='text-red-600'>{error}</p>
                     <div className="form-control mt-6">
                         <button type='submit' className="btn btn-primary">Register</button>
                     </div>

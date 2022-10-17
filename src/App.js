@@ -4,6 +4,8 @@ import Main from './Layout/Main';
 import Home from './components/Home';
 import Login from './components/Login';
 import RegisterFrom from './components/RegisterFrom';
+import PrivateRoute from './privateRoute/PrivateRoute';
+import Orders from './components/Orders';
 
 function App() {
 
@@ -19,6 +21,10 @@ function App() {
         {
           path: '/home',
           element: <Home></Home>
+        },
+        {
+          path: '/orders',
+          element: <PrivateRoute><Orders></Orders></PrivateRoute>
         },
         {
           path: '/register',

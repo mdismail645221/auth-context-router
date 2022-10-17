@@ -50,6 +50,8 @@ const UserContext = ({ children }) => {
         }
     },[])
 
+    
+
 
     const authInfo = { user, createUser, signIn, logOut, signInWihGoogle }
 
