@@ -4,7 +4,7 @@ import { AuthContext } from '../contexts/UserContext';
 
 const RegisterFrom = () => {
 
-    const { createUser } = useContext(AuthContext)
+    const { createUser, signInWihGoogle } = useContext(AuthContext)
     // console.log(createUser)
 
     const handleLoginForm = (event) => {
@@ -16,11 +16,21 @@ const RegisterFrom = () => {
         console.log(email, password)
         createUser(email, password)
             .then(result => {
-                const user = result.user
+                const user = result.user;
+                form.reset()
                 console.log(user)
             })
         .catch(error=> console.error(error))
             
+    }
+
+    const handleGoogleSignIn = () =>{
+        signInWihGoogle()
+        .then(result =>{
+            const user = result.user;
+            console.log(user)
+        })
+        .catch(error=> console.log(error))
     }
 
 
@@ -47,11 +57,13 @@ const RegisterFrom = () => {
                     </label>
                     <input type="password" name='password' placeholder="password" className="input input-bordered" required />
                     </div>
-                    <Link to='/login'><small className='hover:underline text-violet-600 font-semibold'>Please Login</small></Link>
+                    <Link to='/login'>if already register Now! <small className='hover:underline text-violet-600 font-semibold'>Please Login</small></Link>
+
                     <div className="form-control mt-6">
                         <button type='submit' className="btn btn-primary">Register</button>
                     </div>
                 </form>
+                    <button onClick={handleGoogleSignIn} className="inline-flex w-16 btn btn-warning text-center text-black font-semibold shadow-lg border-spacing-1 border-yellow-600 rounded-full">Google</button>
                 </div>
             </div>
         </div>
